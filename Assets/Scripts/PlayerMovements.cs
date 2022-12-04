@@ -15,7 +15,7 @@ public class PlayerMovements : MonoBehaviour
 
     private void Start()
     {
-        controller = gameObject.AddComponent<CharacterController>();
+
     }
 
     private void Update()
