@@ -1,57 +1,61 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-public class CharacterMotor : MonoBehaviour
-{
-    // Start is called before the first frame update
-    private CharacterController mController;
+//Empêche la suppression du CharacterController 
+[RequireComponent(typeof(CharacterController))]
+public class CharacterMotor : MonoBehaviour {
+
+    [SerializeField] private GroundDetection groundDetection;
     [SerializeField] private float Speed = 0.2f;
     [SerializeField] private float RunSpeed = 4f;
-    private bool groundedPlayer;
-    private Vector3 playerVelocity;
-    [SerializeField]private float jumpHeight = 1f;
-    private float gravityValue = -9.81f;
+    [SerializeField] private float jumpHeight = 1f;
+    [SerializeField] private Vector3 moveVelocity;
+    [SerializeField] private Vector3 jumpVelocity;
     
-    private void Awake()
-    {
-        mController = GetComponent<CharacterController>();
+    private CharacterController _characterController;
+    private float gravityValue = -9.81f;
+    private bool groundedPlayer;
+    
+    private void Awake() {
+        _characterController = GetComponent<CharacterController>();
     }
 
-    private void FixedUpdate()
-    {
-    
+    private void Update() {
         //déplacements gauche/droite devant/derriere
         float moveZ = Input.GetAxisRaw("Horizontal");
         float moveX = Input.GetAxisRaw("Vertical");
-        Vector3 moveDir = (moveZ * transform.right) + (moveX * transform.forward);
-        mController.Move(moveDir * Speed);
-        //Gestion du Sprint -- ne fonctionne pas?
+        moveVelocity = (moveZ * transform.right) + (moveX * transform.forward);
+        
+        //Gestion du Sprint 
         bool runKey = Input.GetKey(KeyCode.LeftShift);
-        if (runKey)
+        if (runKey) {
+            if (moveX >= 0)
+            {
+                moveVelocity *= RunSpeed;
+            }
+        }
+        
+        // Déplacement via characterController
+        _characterController.Move(moveVelocity * (Time.deltaTime * Speed));
+        
+        // Gestion de la Gravité
+        jumpVelocity.y += gravityValue * Time.deltaTime;
+        if (groundDetection.IsCollided && jumpVelocity.y < 0)
         {
-            Debug.Log("Is running = " + runKey);
-            moveDir *= RunSpeed;
+            jumpVelocity.y = 0f;
         }
 
-
-    }
-
-    private void Update()
-    {
-        // Gestion du saut 
-        groundedPlayer = mController.isGrounded;
-        if (groundedPlayer && playerVelocity.y < 0) playerVelocity.y = 0f;
-        if (Input.GetButtonDown("Jump") && groundedPlayer)
-        {
-
-            playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
+        // Gestion du Saut
+        //Debug.Log("Grounded : " + _characterController.isGrounded);
+        if (Input.GetButtonDown("Jump") && groundDetection.IsCollided) {
+            jumpVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
+        
+        // Saut via characterController
 
-        playerVelocity.y += gravityValue; 
+        _characterController.Move(jumpVelocity * Time.deltaTime);
+
     }
+    
 }
 
 // à faire : 

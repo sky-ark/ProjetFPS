@@ -19,6 +19,7 @@ public class CameraHandler : MonoBehaviour
     {
         mouseX += Input.GetAxisRaw("Mouse X") * sensitivity;
         mouseY -= Input.GetAxisRaw("Mouse Y") * sensitivity;
+        mouseY = Mathf.Clamp(mouseY, -90f, 45f);
         // Quarternion gère les angles de rotations
         Quaternion cameraRotation = Quaternion.Euler(mouseY, 0f, 0f);
         Quaternion playerRotation = Quaternion.Euler(0f, mouseX, 0f);
