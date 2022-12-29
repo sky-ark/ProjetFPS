@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+//Appel de la lib pour l'UI
+using UnityEngine.UI;
 
 public class Gun : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class Gun : MonoBehaviour
     public int reservedAmmoCapacity = 270;
     [SerializeField] private int _currentAmmoInClip;
     [SerializeField] private int _ammoInReserve;
+    //Affichage Munitions
+    public TMP_Text ammoDisplay;
     //Appel de la caméra pour le raycast
     public Camera fpsCam;
     //Ref pour le flash du tir
@@ -31,6 +36,8 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Transformation des variables de munitions en chaines de charactères pour l'affichage
+        ammoDisplay.text = _currentAmmoInClip.ToString() + " | " + _ammoInReserve.ToString();
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && _currentAmmoInClip > 0)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
