@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyMaster : MonoBehaviour
 {
-    public GameObject player;
+    public Transform player;
 
     public float distance;
 
@@ -13,10 +13,12 @@ public class EnemyMaster : MonoBehaviour
 
     public NavMeshAgent _agent;
     
+    
     // Start is called before the first frame update
     void Start()
     {
-        
+        //assigne le joueur a suivre par les zombies
+        player = GameObject.Find("PlayerCC").GetComponent<Transform>();
     }
 
     // Update is called once per frame
