@@ -82,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   distance: 0
+  triggerDistance: 10
   isAngered: 0
   _agent: {fileID: 4655964904979445423}
 --- !u!195 &4655964904979445423

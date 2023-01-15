@@ -8,6 +8,7 @@ public class EnemyMaster : MonoBehaviour
     public Transform player;
 
     public float distance;
+    public float triggerDistance;
 
     public bool isAngered;
 
@@ -27,9 +28,9 @@ public class EnemyMaster : MonoBehaviour
         // Calcul de la Distance entre l'enemi et le joueur 
         distance = Vector3.Distance(player.transform.position, this.transform.position);
         // Si la distance est inférieur ou égale à 5 l'enemi attaque
-        if(distance <= 5) isAngered = true;
+        if(distance <= triggerDistance) isAngered = true;
         
-        else if (distance > 5) isAngered = false;
+        else if (distance > triggerDistance) isAngered = false;
         if (isAngered)
         {
             _agent.SetDestination(player.transform.position);

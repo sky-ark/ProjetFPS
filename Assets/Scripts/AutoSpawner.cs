@@ -24,8 +24,9 @@ public class AutoSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Si la distance player ennemi est plus élevée, alors commencer à spawn ( permet de faire en sorte d'alterner entre les zones de spawn )
         Distance = Vector3.Distance(transform.position, Player.position);
-        if (Distance < SpawnDistance)
+        if (Distance > SpawnDistance)
         {
             //Si le temps depuis le début du Jeu.
             if (Time.time > NextSpawn)

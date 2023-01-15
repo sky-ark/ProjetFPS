@@ -19,6 +19,13 @@ public class Gun : MonoBehaviour
     [SerializeField] private int _ammoInReserve;
     //Affichage Munitions
     public TMP_Text ammoDisplay;
+    //temps de rechargement
+    private bool isReloading = false;
+    public float reloadingTime;
+    //Affichage du Rechargement
+    public TMP_Text reloadingDisplay;
+    //Animation du  Rechargement
+    public Animator animator; 
     //Appel de la caméra pour le raycast
     public Camera fpsCam;
     //Ref pour le flash du tir
@@ -36,8 +43,11 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isReloading)
+            return;
         //Transformation des variables de munitions en chaines de charactères pour l'affichage
         ammoDisplay.text = _currentAmmoInClip.ToString() + " | " + _ammoInReserve.ToString();
+        //Temps entre 2 balles tirées.
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && _currentAmmoInClip > 0)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
@@ -47,20 +57,13 @@ public class Gun : MonoBehaviour
         //Rechargement si moins de balles dans le chargeur que sa capicité, et balles en réserve supérieures à zéro
         else if (Input.GetKeyDown(KeyCode.R) && _currentAmmoInClip < clipSize && _ammoInReserve > 0)
         {
-            //Calcul du nombre de balles nécessaires pour compléter le chargeur
-            int amountNeeded = clipSize - _currentAmmoInClip;
-            //Si le nombre de balles demandées est supérieur à la réserve, mettre toute la réserve dans le chargeur
-            if (amountNeeded >= _ammoInReserve)
-            {
-                _currentAmmoInClip += _ammoInReserve;
-                _ammoInReserve = 0;
-            }
-            else
-            {
-                _currentAmmoInClip = clipSize;
-                _ammoInReserve -= amountNeeded;
-            }
+            StartCoroutine(Reload());
+            return;
         }
+
+       
+            
+        
     }
 
     void Shoot()
@@ -87,5 +90,41 @@ public class Gun : MonoBehaviour
             Destroy(impactGO, 2f);
         }
             
+    }
+
+    IEnumerator Reload()
+    {
+        isReloading = true;
+        Debug.Log("isreloading");
+        //affichage de "reloading"
+        reloadingDisplay.text = " Reloading ";
+        //Animation du Rechargement 
+        animator.SetBool("Reloading", true);
+        
+        //temps de rechargement
+        
+        yield return new WaitForSeconds(reloadingTime);
+        //fin animation rechargement et "reloading"
+        animator.SetBool("Reloading", false);
+        reloadingDisplay.text = " ";
+
+        //Calcul du nombre de balles nécessaires pour compléter le chargeur
+        int amountNeeded = clipSize - _currentAmmoInClip;
+        //Si le nombre de balles demandées est supérieur à la réserve, mettre toute la réserve dans le chargeur
+        if (amountNeeded >= _ammoInReserve)
+        {
+            _currentAmmoInClip += _ammoInReserve;
+            _ammoInReserve = 0;
+            isReloading = false;
+        }
+        else
+        {
+            _currentAmmoInClip = clipSize;
+            _ammoInReserve -= amountNeeded;
+            isReloading = false;
+        }
+
+   
+
     }
 }
