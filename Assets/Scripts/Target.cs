@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public float health = 50f;
+    public float enemyHealth = 50f; // Vie de l'ennemi
+    public int scoreValue = 10; // Points pour la mort de l'ennemi. 
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        if (health <= 0f)
+        enemyHealth -= amount;
+        if (enemyHealth <= 0f)
         {
             Die();
         }
@@ -18,5 +19,6 @@ public class Target : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        ScoreManager.score += scoreValue;
     }
 }

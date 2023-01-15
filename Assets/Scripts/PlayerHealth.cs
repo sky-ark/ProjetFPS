@@ -13,8 +13,8 @@ public class PlayerHealth : MonoBehaviour
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
 
 
-    Animator anim;                                              // Reference to the Animator component.
-    AudioSource playerAudio;                                    // Reference to the AudioSource component.
+    //Animator anim;                                              // Reference to the Animator component.
+    //AudioSource playerAudio;                                    // Reference to the AudioSource component.
     CharacterController characterController;                              // Ref au script du characterController
     Gun gun;                              // Reference au script du shoot du gun
     bool isDead;                                                // Whether the player is dead.
@@ -24,8 +24,8 @@ public class PlayerHealth : MonoBehaviour
     void Awake ()
     {
         // Setting up the references.
-        anim = GetComponent <Animator> ();
-        playerAudio = GetComponent <AudioSource> ();
+       // anim = GetComponent <Animator> ();
+        //playerAudio = GetComponent <AudioSource> ();
         characterController = GetComponent <CharacterController> ();
         gun = GetComponentInChildren <Gun> ();
 
@@ -66,7 +66,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
 
         // Play the hurt sound effect.
-        playerAudio.Play ();
+        // playerAudio.Play ();
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if(currentHealth <= 0 && !isDead)
@@ -83,17 +83,17 @@ public class PlayerHealth : MonoBehaviour
         isDead = true;
 
         // Turn off any remaining shooting effects.
-        gun.DisableEffects ();
+        //gun.DisableEffects ();
 
         // Tell the animator that the player is dead.
-        anim.SetTrigger ("Die");
+        // anim.SetTrigger ("Die");
 
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        playerAudio.clip = deathClip;
-        playerAudio.Play ();
+        //playerAudio.clip = deathClip;
+        //playerAudio.Play ();
 
         // Turn off the movement and shooting scripts.
-        playerMovement.enabled = false;
-        playerShooting.enabled = false;
+        characterController.enabled = false;
+        gun.enabled = false;
     }        
 }
