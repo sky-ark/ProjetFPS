@@ -58,8 +58,5 @@ public class CharacterMotor : MonoBehaviour {
     
 }
 
-// à faire : 
-// - Bloquer la rotation maximal de la caméra 
-// - Faire en sorte que le joueur touche le sol ( pourquoi ne tombe t'il pas au sol actuellement ? ) 
-// - Vérifier la fonction de saut. 
-// - Comprendre pourquoi le sprint ne fonctionne pas 
+
+
