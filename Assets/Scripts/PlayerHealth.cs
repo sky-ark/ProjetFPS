@@ -14,7 +14,9 @@ public class PlayerHealth : MonoBehaviour
 
 
     //Animator anim;                                              // Reference to the Animator component.
-    //AudioSource playerAudio;                                    // Reference to the AudioSource component.
+    public AudioSource audioSource;                                    // Reference to the AudioSource component.
+    public AudioClip HurtSound;
+    public AudioClip DyingSound; 
     CharacterController characterController;                              // Ref au script du characterController
     Gun gun;                              // Reference au script du shoot du gun
     bool isDead;                                                // Whether the player is dead.
@@ -25,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // Setting up the references.
        // anim = GetComponent <Animator> ();
-        //playerAudio = GetComponent <AudioSource> ();
+        audioSource = GetComponent <AudioSource> ();
         characterController = GetComponent <CharacterController> ();
         gun = GetComponentInChildren <Gun> ();
 
@@ -66,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
 
         // Play the hurt sound effect.
-        // playerAudio.Play ();
+        audioSource.PlayOneShot(HurtSound);
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if(currentHealth <= 0 && !isDead)
@@ -89,7 +91,7 @@ public class PlayerHealth : MonoBehaviour
         // anim.SetTrigger ("Die");
 
         // Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        //playerAudio.clip = deathClip;
+        audioSource.PlayOneShot(DyingSound);
         //playerAudio.Play ();
 
         // Turn off the movement and shooting scripts.

@@ -33,12 +33,19 @@ public class Gun : MonoBehaviour
     //Ref pour particle de l'impact
     public GameObject impactEffect;
     private float nextTimeToFire = 0f;
- 
-    
+    //Ref Audio 
+    public AudioSource audioSource;
+    public AudioClip ShootSound;
+    public AudioClip ReloadSound;
+    public AudioClip PickUpSound;
+   
+
     private void Start()
     {
         _currentAmmoInClip = clipSize;
         _ammoInReserve = reservedAmmoCapacity;
+        //Appel Component Audio
+        audioSource = GetComponent<AudioSource>();
     }
     // Update is called once per frame
     void Update()
@@ -69,6 +76,7 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         muzzleFlash.Play();
+        audioSource.PlayOneShot(ShootSound); 
         RaycastHit hit;
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
@@ -92,12 +100,20 @@ public class Gun : MonoBehaviour
             
     }
 
+    public void RefillAmo()
+    {
+        audioSource.PlayOneShot(PickUpSound);
+        _ammoInReserve = reservedAmmoCapacity;
+    }
+    
     IEnumerator Reload()
     {
         isReloading = true;
         Debug.Log("isreloading");
         //affichage de "reloading"
         reloadingDisplay.text = " Reloading ";
+        //Son Rechargement
+        audioSource.PlayOneShot(ReloadSound);
         //Animation du Rechargement 
         animator.SetBool("Reloading", true);
         
