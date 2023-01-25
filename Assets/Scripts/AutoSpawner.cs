@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class AutoSpawner : MonoBehaviour
 {
-    public Transform Player;
-    //à partir de quelle distance du joueur à la zone de spawn, on spawn l'ennemi
-    public int SpawnDistance;
-    //Appel du prefab de l'ennemi à spawn
-    public GameObject PrefabToSpawn;
+    
 
-    public float Distance;
+    //Appel du prefab de l'ennemi à spawn
+    public GameObject Ennemy;
+
+    
     //vitesse de spawn
     public float SpawnRate;
 
-    private float NextSpawn;
+    public float OverallSpawnRate;
+
+    public static int DeathNumber;
+
+    public AnimationCurve SpawnFunction; // création d'une courbe pour la vitesse de spawn 
+    //SpawnPosition
+    public List<GameObject> SpawnPosition;
+    //Temps
+    private float _currentTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,16 +31,18 @@ public class AutoSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Si la distance player ennemi est plus élevée, alors commencer à spawn ( permet de faire en sorte d'alterner entre les zones de spawn )
-        Distance = Vector3.Distance(transform.position, Player.position);
-        if (Distance > SpawnDistance)
+        _currentTime += Time.deltaTime;
+        OverallSpawnRate = SpawnFunction.Evaluate(DeathNumber);
+        if (_currentTime > OverallSpawnRate)
         {
-            //Si le temps depuis le début du Jeu.
-            if (Time.time > NextSpawn)
-            {
-                NextSpawn = Time.time + SpawnRate;
-                Instantiate(PrefabToSpawn, transform.position, Quaternion.identity);  
-            }
+            SpawnMob();
+            _currentTime = 0;
         }
+    }
+
+    void SpawnMob()
+    {
+        GameObject spawn = SpawnPosition[Random.Range(0, SpawnPosition.Count)];
+        Instantiate(Ennemy, spawn.transform.position, Quaternion.identity);
     }
 }

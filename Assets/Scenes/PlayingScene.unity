@@ -248,16 +248,50 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 37323450}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0724e6511c38814ba7c5db745b1e00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1316141883}
-  SpawnDistance: 30
-  PrefabToSpawn: {fileID: 4655964904979445411, guid: 26da604bb366cc74487cd4504321f4a6, type: 3}
-  Distance: 0
+  Ennemy: {fileID: 4655964904979445411, guid: 26da604bb366cc74487cd4504321f4a6, type: 3}
   SpawnRate: 3.5
+  OverallSpawnRate: 0
+  SpawnFunction:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 7.0000067
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 6.9306045
+      value: 4.8958597
+      inSlope: -0.41497758
+      outSlope: -0.41497758
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 14.941576
+      value: 0.79958785
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  SpawnPosition:
+  - {fileID: 1865471601}
+  - {fileID: 774244190}
 --- !u!1 &96225077
 GameObject:
   m_ObjectHideFlags: 0
@@ -7359,7 +7393,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 774244191}
-  - component: {fileID: 774244192}
   m_Layer: 0
   m_Name: Spawner2
   m_TagString: Untagged
@@ -7375,30 +7408,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774244190}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.66, y: 1.88, z: -11.49}
+  m_LocalPosition: {x: 15.66, y: 1.8800001, z: -11.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 37323452}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &774244192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 774244190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0724e6511c38814ba7c5db745b1e00e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1316141883}
-  SpawnDistance: 0
-  PrefabToSpawn: {fileID: 4655964904979445411, guid: 26da604bb366cc74487cd4504321f4a6, type: 3}
-  Distance: 5
-  SpawnRate: 7
 --- !u!1 &820882010
 GameObject:
   m_ObjectHideFlags: 0
@@ -8459,7 +8475,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh73920
+  m_Name: pb_Mesh21208
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -8617,11 +8633,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &1316141883 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3659892531324834723, guid: e51aa653e783f0d478ecaff83c03fd00, type: 3}
-  m_PrefabInstance: {fileID: 8792285181087773676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1316141886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19656,7 +19667,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1865471602}
-  - component: {fileID: 1865471603}
   m_Layer: 0
   m_Name: Spawner1
   m_TagString: Untagged
@@ -19679,23 +19689,6 @@ Transform:
   m_Father: {fileID: 37323452}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1865471603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1865471601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0724e6511c38814ba7c5db745b1e00e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 1316141883}
-  SpawnDistance: 5
-  PrefabToSpawn: {fileID: 4655964904979445411, guid: 26da604bb366cc74487cd4504321f4a6, type: 3}
-  Distance: 0
-  SpawnRate: 7
 --- !u!1 &1920768484
 GameObject:
   m_ObjectHideFlags: 0

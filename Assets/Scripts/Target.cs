@@ -20,5 +20,6 @@ public class Target : MonoBehaviour
     {
         Destroy(gameObject);
         ScoreManager.score += scoreValue;
+        AutoSpawner.DeathNumber++;
     }
 }
