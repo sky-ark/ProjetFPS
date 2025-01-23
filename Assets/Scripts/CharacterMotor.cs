@@ -14,8 +14,11 @@ public class CharacterMotor : MonoBehaviour {
     private CharacterController _characterController;
     private float gravityValue = -9.81f;
     private bool groundedPlayer;
+
+    public AnimatorController animator;
     
     private void Awake() {
+    
         _characterController = GetComponent<CharacterController>();
     }
 
@@ -50,6 +53,9 @@ public class CharacterMotor : MonoBehaviour {
             jumpVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * gravityValue);
         }
         
+        if (Input.GetButtonDown("Fire1") ){
+            animator.SetTrigger("shoot");
+        }
         // Saut via characterController
 
         _characterController.Move(jumpVelocity * Time.deltaTime);
